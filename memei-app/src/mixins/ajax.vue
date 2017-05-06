@@ -75,7 +75,7 @@
     }
   })
   Mock.setup({
-    timeout: '1000'
+    timeout: '100-3000'
   })
   Mock.mock(/\.json/, {
     'list|10': [

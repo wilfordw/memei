@@ -15,6 +15,7 @@
                 <f7-link iconF7="data" href="/login/"></f7-link>
               </f7-nav-right>
             </f7-navbar>
+            <!--swipeable animated-->
             <f7-tabs swipeable>
               <card-list class="active" :listName="latestListName"></card-list>
               <card-list :listName="catagoryListName"></card-list>
@@ -69,8 +70,12 @@
     color: deeppink;
   }
 
-  .button.button-fill, i.icon.icon-back,{
+  .button.button-fill, i.icon.icon-back {
     background-color: deeppink;
   }
 
+  .pull-to-refresh-content.refreshing {
+    -webkit-transform: translate3d(0,44px,0);
+    transform: translate3d(0,44px,0);
+  }
 </style>

@@ -5,7 +5,7 @@
       <div class="pull-to-refresh-arrow"></div>
     </div>
     <info-card
-          v-for="info in infoList"
+          v-for="(info,index) in infoList"
           :headerImage="info.headerImage"
           :authorName="info.authorName"
           :pushDate="info.pushDate"
@@ -15,6 +15,7 @@
           :picsTitle="info.picsTitle"
           :favoriteCount="info.favoriteCount"
           :picsDir="info.picsDir"
+          :key="index"
       ></info-card>
     <!-- Preloader -->
     <div class="infinite-scroll-preloader">
@@ -59,7 +60,7 @@
           this.$f7.pullToRefreshDone()
           console.log(error)
         })
-      },
+      }
     },
     mounted: function () {
       this.getPhotos().catch(error => console.log(error))
@@ -68,13 +69,22 @@
 </script>
 
 <style>
-  /*.swiper-slide .preloader {*/
-    /*width: 20px;*/
-    /*height: 20px;*/
-    /*position: relative;*/
-    /*left: 0;*/
-    /*top: 0;*/
-    /*margin-top: 0;*/
-    /*margin-left: 0;*/
-  /*}*/
+  .swiper-slide .preloader {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  .pull-to-refresh-layer .preloader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    visibility: hidden;
+  }
 </style>
