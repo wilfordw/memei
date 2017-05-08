@@ -40,14 +40,17 @@
       favoriteCount: Number
     },
     methods: {
-      onImageClicked: function () {
-        let picsPath = []
+      getPhotoUrls: function () {
+        let photoPaths = []
         let index = 0
         Array.prototype.forEach.call(Array.from({length: this.picsCount}), () => {
-          picsPath.push(path.join(this.picsDir, index + '.jpg'))
+          photoPaths.push(path.join(this.picsDir, index + '.jpg'))
           index++
         })
-        let browerNavTemplate = `
+        return photoPaths
+      },
+      getPhotoBrowerNav: function () {
+        return `
         <div class="navbar">
           <div class="navbar-inner">
             <div class="left sliding">
@@ -56,8 +59,11 @@
               </a>
             </div>
           </div>
-        </div>`
-        let browerToolBarTemplate = `
+        </div>
+        `
+      },
+      getPhotoBrowerToolBar: function () {
+        return `
         <div class="toolbar tabbar">
           <div class="toolbar-inner">
             <a href="#" class="link photo-browser-prev">
@@ -68,78 +74,98 @@
             </a>
           </div>
         </div>`
-
-        let photoLazyTemplate = `
+      },
+      getPhotoBrowerLazy: function () {
+        return `
         <div class="photo-browser-slide photo-browser-slide-lazy swiper-slide">
-            <div class="preloader {{@root.preloaderColorClass}}">{{#if @root.material}}{{@root.materialPreloaderSvg}}{{/if}}</div>
+            <div class="preloader"></div>
             <span class="photo-browser-zoom-container">
-                <img data-src="{{js "this.url || this"}}" class="swiper-lazy">
+                <img data-src="{{js " this.url || this"}}" class="swiper-lazy">
             </span>
         </div>`
-        this.$f7.photoBrowser({
-          photos: picsPath,
-          backLinkText: '关闭',
+      },
+      onImageClicked: function () {
+        let photoBrowerParams = {
+          photos: this.getPhotoUrls(),
           ofText: '-',
-//          lazyLoading: true,
-          lazyLoadingOnTransitionStart: true,
-          navbarTemplate: browerNavTemplate,
-          toolbarTemplate: browerToolBarTemplate,
-          photoLazyTemplate: photoLazyTemplate,
-          onLazyImageLoad: function(swiper, slide, image){
-            console.log(swiper, slide, image)
-          },
-          onLazyImageReady: function (swiper, slide, image) {
-            console.log(swiper, slide, image)
-          }
-        }).open()
+          lazyLoading: true,
+          navbarTemplate: this.getPhotoBrowerNav(),
+          toolbarTemplate: this.getPhotoBrowerToolBar(),
+          lazyPhotoTemplate: this.getPhotoBrowerLazy(),
+          onLazyImageLoad: this.onLazyImageLoad,
+          onLazyImageReady: this.onLazyImageReady
+        }
+        this.$f7.photoBrowser(photoBrowerParams).open()
+      },
+      onLazyImageLoad: function (swiper, slide, image) {
+        console.log(swiper, slide, image)
+      },
+      onLazyImageReady: function (swiper, slide, image) {
+        console.log(swiper, slide, image)
       }
     }
   }
 </script>
 
-<style>
-  .card {
-    border-radius: 10px;
-  }
-  .card-header {
+<style lang="stylus">
+  .card
+    border-radius: 10px
+
+  .card-header
     padding: 5px
-  }
-  .head img {
-    width: 50px;
-    border-radius: 50px;
-  }
-  .author {
-    font-size: 15px;
-    font-weight: 500;
-    text-align: left;
-    flex-grow: 1;
-    padding-left: 5px;
-  }
-  .date {
-    font-size: 14px;
-    color: lightslategray;
-    text-align: right;
-    padding-right: 5px;
-  }
-  .clip {
+
+  .head img
+    width: 50px
+    border-radius: 50px
+
+  .author
+    font-size: 15px
+    font-weight: 500
+    text-align: left
+    flex-grow: 1
+    padding-left: 5px
+
+  .date
+    font-size: 14px
+    color: lightslategray
+    text-align: right
+    padding-right: 5px
+
+  .clip
     width: 100%;
-    height: 100vw;
+    height: 100vw
     overflow: hidden
-  }
-  .clip img {
+
+  .clip img
     width: 100%;
     margin-top: -15vh
-  }
-  .catagory {
+
+  .catagory
     position: absolute;
     top: 10px;
     left: 20px;
     color: white;
     font-weight: 400;
-  }
-  .pic-count {
+
+  .pic-count
     position: absolute;
     top: 92vw; left: 80vw;
     color: white;
+
+  .photo-browser
+    .navbar
+    .toolbar
+      background-color: rgba(247,247,247,.4)
+
+  .photo-browser-slide .preloader{
+    display: none;
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    margin-left: -21px;
+    margin-top: -21px;
+    left: 50%;
+    top: 50%;
   }
+
 </style>
