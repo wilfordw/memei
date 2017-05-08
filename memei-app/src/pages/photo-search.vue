@@ -4,7 +4,7 @@
     cancel-link="取消"
     :custom-search="true" placeholder="搜索心仪的作者" :clear="true" @input="onSearch"></f7-searchbar>
     <info-card
-        v-for="info in infoList"
+        v-for="(info, index) in infoList"
         :headerImage="info.headerImage"
         :authorName="info.authorName"
         :pushDate="info.pushDate"
@@ -14,6 +14,7 @@
         :picsTitle="info.picsTitle"
         :favoriteCount="info.favoriteCount"
         :picsDir="info.picsDir"
+        :key="index"
     ></info-card>
   </f7-page-content>
 </template>
@@ -46,15 +47,3 @@
     }
   }
 </script>
-
-<style>
-  /*.swiper-slide .preloader {*/
-  /*width: 20px;*/
-  /*height: 20px;*/
-  /*position: relative;*/
-  /*left: 0;*/
-  /*top: 0;*/
-  /*margin-top: 0;*/
-  /*margin-left: 0;*/
-  /*}*/
-</style>

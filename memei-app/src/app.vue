@@ -65,17 +65,6 @@
   }
 </script>
 
-<style>
-  .tabbar a.active, a {
-    color: deeppink;
-  }
-
-  .button.button-fill, i.icon.icon-back {
-    background-color: deeppink;
-  }
-
-  .pull-to-refresh-content.refreshing {
-    -webkit-transform: translate3d(0,44px,0);
-    transform: translate3d(0,44px,0);
-  }
+<style lang="stylus">
+  @import "stylus/main.styl"
 </style>

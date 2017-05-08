@@ -68,23 +68,21 @@
   }
 </script>
 
-<style>
-  .swiper-slide .preloader {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    left: 0;
-    top: 0;
-    margin-left: 0;
-    margin-top: 0;
-  }
+<style lang="stylus">
+  .swiper-slide .preloader
+    width: 20px
+    height: 20px
+    position: relative
+    left: 0
+    top: 0
+    margin-top: 0
+    margin-left: 0
 
-  .pull-to-refresh-layer .preloader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -10px;
-    margin-top: -10px;
-    visibility: hidden;
-  }
+  .pull-to-refresh-layer .preloader
+    position: absolute
+    left: 50%
+    top: 50%
+    margin-left: -10px
+    margin-top: -10px
+    visibility: hidden
 </style>
