@@ -1,4 +1,5 @@
 <script>
+  import axios from 'axios'
   let Mock = require('mockjs')
   Mock.Random.extend({
     picsDirs: function () {
@@ -77,33 +78,41 @@
   Mock.setup({
     timeout: '100-3000'
   })
-  Mock.mock(/\.json/, {
-    'list|10': [
-      '@PICSDIRS'
-    ]
-  })
+  // Mock.mock(/\.json/, {
+  //   'list|10': [
+  //     '@PICSDIRS'
+  //   ]
+  // })
 
   export default {
     methods: {
       getPhotos: function (isReset) {
         return new Promise((resolve, reject) => {
-          this.$$.ajax({
-            url: 'photos.json',
-            method: 'GET',
-            timeout: 10000,
-            success: (data, status, xhr) => {
-              let d = JSON.parse(data)
-              if (isReset) { this.infoList = [] }
-              d.list.forEach((item) => {
-                this.infoList.push(item)
-              })
-              resolve()
-            },
-            error: (xhr, status) => {
-              reject(xhr, status)
-            }
+          axios.patch('http://memei-api.dev/api/user')
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
           })
         })
+        //   this.$$.ajax({
+        //     url: 'photos.json',
+        //     method: 'GET',
+        //     timeout: 10000,
+        //     success: (data, status, xhr) => {
+        //       let d = JSON.parse(data)
+        //       if (isReset) { this.infoList = [] }
+        //       d.list.forEach((item) => {
+        //         this.infoList.push(item)
+        //       })
+        //       resolve()
+        //     },
+        //     error: (xhr, status) => {
+        //       reject(xhr, status)
+        //     }
+        //   })
+        // })
       }
     }
   }
