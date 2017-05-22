@@ -1,25 +1,23 @@
 <template lang="html">
   <div>
     <div>Page-Categories</div>
-    <Button type="primary" @click="createModalShow = true">新增</Button>
+    <Button type="success" @click="createModalShow = true">新增</Button>
     <Button type="primary" @click="editModalShow = true">编辑</Button>
-    <Button type="primary" @click="deleteModalShow = true">删除</Button>
-    <modal-create :show="createModalShow" @on-close="createModalShow = false">
+    <Button type="error" @click="deleteModalShow = true">删除</Button>
+    <m-modal mode="add" :show="createModalShow" @on-close="createModalShow = false">
       <p>点击确定后，对话框将在 2秒 后关闭。</p>
-    </modal-create>
-    <modal-edit :show="editModalShow" @on-close="editModalShow = false">
+    </m-modal>
+    <m-modal mode="edit" :show="editModalShow" @on-close="editModalShow = false">
       <p>点击确定后，对话框将在 2秒 后关闭。</p>
-    </modal-edit>
-    <modal-delete :show="deleteModalShow" @on-close="deleteModalShow = false">
+    </m-modal>
+    <m-modal mode="del" :show="deleteModalShow" @on-close="deleteModalShow = false">
       <p>点击确定后，对话框将在 2秒 后关闭。</p>
-    </modal-delete>
+    </m-modal>
   </div>
 </template>
 
 <script>
-import createModal from '../modals/_createModal.vue'
-import editModal from '../modals/_editModal.vue'
-import deleteModal from '../modals/_deleteModal.vue'
+import mModal from '../modals/_modal.vue'
 
 export default {
   data () {
@@ -30,9 +28,7 @@ export default {
     }
   },
   components: {
-    'modal-create': createModal,
-    'modal-edit': editModal,
-    'modal-delete': deleteModal
+    'm-modal': mModal
   }
 }
 </script>
