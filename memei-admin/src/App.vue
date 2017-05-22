@@ -1,11 +1,15 @@
 <template>
   <div id="app">
+    <m-layout></m-layout>
   </div>
 </template>
 
 <script>
+import layout from './components/layout.vue'
 export default {
-  name: 'app'
+  components: {
+    'm-layout': layout
+  }
 }
 </script>
 
