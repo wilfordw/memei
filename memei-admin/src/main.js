@@ -3,10 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import axios from 'axios'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'   // 使用 CSS
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
 
-Vue.use(iView)
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 Vue.prototype.$http = axios
