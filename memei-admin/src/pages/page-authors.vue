@@ -1,7 +1,8 @@
 <template lang="html">
-  <div>Page-Authors</div>
+  <div>
+    <div>Page-Authors</div>
+  </div>
 </template>
-
 <script>
 export default {
 }
