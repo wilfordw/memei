@@ -32,15 +32,12 @@
 import pCategories from '../pages/page-categories.vue'
 import pAuthors from '../pages/page-authors.vue'
 import pCards from '../pages/page-cards.vue'
-import { ajax, store, mock } from '@/utils'
-
-mock.mock()
+import { ajax } from '@/utils'
 
 export default {
   data () {
     return {
-      activeName: '1-1',
-      store: store
+      activeName: '1-1'
     }
   },
   methods: {
