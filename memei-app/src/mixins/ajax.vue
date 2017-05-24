@@ -83,12 +83,12 @@
   //     '@PICSDIRS'
   //   ]
   // })
-
+  var qs = require('qs')
   export default {
     methods: {
       getPhotos: function (isReset) {
         return new Promise((resolve, reject) => {
-          axios.patch('http://memei-api.dev/api/user')
+          axios.get('http://memei-api.dev/api/categories/', qs.stringify({ 'name': 'n' }))
           .then(function (response) {
             console.log(response)
           })
