@@ -32,7 +32,7 @@
 import pCategories from '../pages/page-categories.vue'
 import pAuthors from '../pages/page-authors.vue'
 import pCards from '../pages/page-cards.vue'
-import { ajax } from '@/utils'
+// import { ajax } from '@/utils'
 
 export default {
   data () {
@@ -43,11 +43,11 @@ export default {
   methods: {
     menuSelected: function (name) {
       this.activeName = name
-      ajax.get('/cards/1', {id: 100}).then((response) => {
-        console.log(response)
-      }).catch((error) => {
-        console.log(error)
-      })
+      // ajax.get('/cards/1', {id: 100}).then((response) => {
+      //   console.log(response)
+      // }).catch((error) => {
+      //   console.log(error)
+      // })
     }
   },
   components: {
