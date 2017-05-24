@@ -1,11 +1,9 @@
 <template lang="html">
   <div>
     <nice-modal mode="create" :show="show" @on-close="$emit('on-close')" @submit="onSubmit">
-      <Form :model="formData">
-          <Input v-model="formData.name" placeholder="请输入">
-            <span slot="prepend">名字</span>
-          </Input>
-      </Form>
+      <Input v-model="formData.name" placeholder="请输入">
+        <span slot="prepend">名字</span>
+      </Input>
     </nice-modal>
   </div>
 </template>
