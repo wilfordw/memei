@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <nice-modal mode="update" :show="show" @on-close="$emit('on-close')" @submit="onSubmit">
-      <Form :model="formData" :label-width="80">
+      <Form :model="formData">
           <Input v-model="formData.name" placeholder="请输入">
             <span slot="prepend">名字</span>
           </Input>

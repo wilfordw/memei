@@ -3,25 +3,15 @@
     v-model="isShow"
     width="360"
     @on-cancel="$emit('on-close')">
-    <p v-if="mode === 'delete'" slot="header" style="color:#f60;text-align:center">
+    <p slot="header" style="text-align:center" :style="{ color: modalDisplay.headerColor }">
       <Icon type="information-circled"></Icon>
-      <span>删除确认</span>
-    </p>
-    <p v-if="mode === 'create'" slot="header" style="color:#00cc66;text-align:center">
-      <Icon type="information-circled"></Icon>
-      <span>新增</span>
-    </p>
-    <p v-if="mode === 'update'" slot="header" style="color:#3399ff;text-align:center">
-      <Icon type="information-circled"></Icon>
-      <span>修改</span>
+      <span>{{ modalDisplay.title }}</span>
     </p>
     <div style="text-align:center">
       <slot></slot>
     </div>
     <div slot="footer">
-      <Button v-if="mode === 'delete'" type="error" size="large" long :loading="modal_loading" @click="asyncOK">删除</Button>
-      <Button v-if="mode === 'update'" type="primary" size="large" long :loading="modal_loading" @click="asyncOK">保存</Button>
-      <Button v-if="mode === 'create'" type="success" size="large" long :loading="modal_loading" @click="asyncOK">添加</Button>
+      <Button :type="modalDisplay.buttonType" size="large" long :loading="modal_loading" @click="asyncOK">{{ modalDisplay.buttonText }}</Button>
     </div>
   </Modal>
 </template>
@@ -38,6 +28,42 @@ export default {
     show: Boolean,
     mode: String
   },
+  computed: {
+    // 增删改模式的不同表现
+    modalDisplay () {
+      switch (this.mode) {
+        case 'create':
+          return {
+            headerColor: '#00cc66',
+            title: '新增',
+            buttonType: 'success',
+            buttonText: '添加',
+            successMsg: '添加成功',
+            failMsg: '添加失败'
+          }
+        case 'update':
+          return {
+            headerColor: '#3399ff',
+            title: '修改',
+            buttonType: 'primary',
+            buttonText: '保存',
+            successMsg: '保存成功',
+            failMsg: '保存失败'
+          }
+        case 'delete':
+          return {
+            headerColor: '#f60',
+            title: '删除确认',
+            buttonType: 'error',
+            buttonText: '删除',
+            successMsg: '删除成功',
+            failMsg: '删除失败'
+          }
+        default:
+          return {}
+      }
+    }
+  },
   watch: {
     show () {
       this.isShow = this.show
@@ -50,10 +76,10 @@ export default {
         this.modal_loading = false
         this.isShow = false
         this.$emit('on-close')
-        this.$Message.success('删除成功')
+        this.$Message.success(this.modalDisplay.successMsg)
       }, () => {
         this.modal_loading = false
-        this.$Message.error('删除失败')
+        this.$Message.error(this.modalDisplay.failMsg)
       })
     }
   }
