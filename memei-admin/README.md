@@ -18,3 +18,27 @@
 let qs = require('qs')
 axios.post('/categories', qs.stringify({'name': 'steven'}))
 ```
+
+**PUT**,**DELETE** 需要转成**POST**请求，配置`_method`参数（对应Laravel)，这里可以用axios拦截统一解决跨域问题
+
+```js
+// 添加拦截
+axios.interceptors.request.use(function (config) {
+  if (config.method === 'put') { // put 请求自动转换
+    config.data._method = 'put'
+    config.method = 'post'
+  }
+
+  if (config.method === 'delete') { // delete 请求自动转换
+    config.data._method = 'delete'
+    config.method = 'delete'
+  }
+
+   // 使用 application/x-www-form-urlencoded 格式 解决跨域冲突
+  config.data = qs.stringify(config.data)
+  return config
+}, function (error) {
+  console.error(error)
+  return Promise.reject(error)
+})
+```
