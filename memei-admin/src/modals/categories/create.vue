@@ -5,9 +5,6 @@
           <Input v-model="formData.name" placeholder="请输入">
             <span slot="prepend">名字</span>
           </Input>
-          <!-- <Select v-model="formData.authors" class="formItem">
-            <Option v-for="item in authors" :value="item.value" :key="item">{{ item.label }}</Option>
-          </Select> -->
       </Form>
     </nice-modal>
   </div>
@@ -20,31 +17,8 @@ import { ajax } from '../../utils'
 export default {
   data () {
     return {
-      // authors: [
-      //   {
-      //     value: 1,
-      //     label: '马鲁娜'
-      //   },
-      //   {
-      //     value: 2,
-      //     label: '马鲁娜'
-      //   },
-      //   {
-      //     value: 3,
-      //     label: '马鲁娜'
-      //   },
-      //   {
-      //     value: 4,
-      //     label: '马鲁娜'
-      //   },
-      //   {
-      //     value: 5,
-      //     label: '马鲁娜'
-      //   }
-      // ],
       formData: {
         name: ''
-        // author: ''
       }
     }
   },
@@ -58,8 +32,12 @@ export default {
     onSubmit (success, fail) {
       ajax.post('/categories', this.formData)
       .then(data => {
-        console.log(data)
-        success()
+        if (data.status === 200) {
+          success()
+          this.$emit('on-update')
+        } else {
+          fail()
+        }
       })
       .catch(error => {
         console.log(error)

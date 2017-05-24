@@ -3,7 +3,7 @@
     v-model="isShow"
     width="360"
     @on-cancel="$emit('on-close')">
-    <p v-if="mode === 'detete'" slot="header" style="color:#f60;text-align:center">
+    <p v-if="mode === 'delete'" slot="header" style="color:#f60;text-align:center">
       <Icon type="information-circled"></Icon>
       <span>删除确认</span>
     </p>
@@ -19,7 +19,7 @@
       <slot></slot>
     </div>
     <div slot="footer">
-      <Button v-if="mode === 'detete'" type="error" size="large" long :loading="modal_loading" @click="asyncOK">删除</Button>
+      <Button v-if="mode === 'delete'" type="error" size="large" long :loading="modal_loading" @click="asyncOK">删除</Button>
       <Button v-if="mode === 'update'" type="primary" size="large" long :loading="modal_loading" @click="asyncOK">保存</Button>
       <Button v-if="mode === 'create'" type="success" size="large" long :loading="modal_loading" @click="asyncOK">添加</Button>
     </div>

@@ -30,8 +30,9 @@ axios.interceptors.request.use(function (config) {
   }
 
   if (config.method === 'delete') { // delete 请求自动转换
+    config.data = {}
     config.data._method = 'delete'
-    config.method = 'delete'
+    config.method = 'post'
   }
 
    // 使用 application/x-www-form-urlencoded 格式 解决跨域冲突
