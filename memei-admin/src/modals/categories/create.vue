@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     onSubmit (success, fail) {
-      ajax.get('/categories', this.formData)
+      ajax.post('/categories', this.formData)
       .then(data => {
         console.log(data)
         success()
