@@ -8,6 +8,7 @@ export default {
   [types.MODAL_BUTTON_IS_LOADING] (state, isLoading) {
     state.loading = isLoading
   },
+
   [types.MODAL_SETTINGS_CHANGE] (state, settings) {
     state.settings = {...state.settings, ...settings}
   }

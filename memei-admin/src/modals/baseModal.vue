@@ -24,7 +24,8 @@ export default {
     ...mapState({
       show: state => state.modal.show,
       loading: state => state.modal.loading,
-      settings: state => state.modal.settings
+      settings: state => state.modal.settings,
+      formData: state => state.modal.formData
     })
   },
   methods: {

@@ -8,7 +8,7 @@
     <update-modal :show="updateModalShow" @on-close="updateModalShow = false" :id="id" @on-update="updateCards"></update-modal>
     <delete-modal :show="deleteModalShow" :id="id" @on-close="deleteModalShow = false" @on-update="updateCards"></delete-modal>
 
-    <form-modal></form-modal>
+    <base-modal></base-modal>
 
     <p>{{ num }}</p>
     <p>{{ double }}</p>
@@ -22,7 +22,7 @@
 import createModal from '../modals/categories/create.vue'
 import updateModal from '../modals/categories/update.vue'
 import deleteModal from '../modals/categories/delete.vue'
-import formModal from '../modals/form_modal.vue'
+import baseModal from '../modals/baseModal.vue'
 import { mapState, mapGetters } from 'vuex'
 // import * as types from '../store/modal/mutations_types'
 
@@ -49,7 +49,7 @@ export default {
     'create-modal': createModal,
     'update-modal': updateModal,
     'delete-modal': deleteModal,
-    'form-modal': formModal
+    'base-modal': baseModal
   },
   methods: {
     updateCards () {

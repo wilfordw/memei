@@ -1,5 +1,6 @@
 import * as types from './mutations_types'
 
+// 新增 编辑 删除 弹出框默认 配置内容
 const modalModes = {
   create: {
     title: '新增',
