@@ -61,7 +61,9 @@ export default {
       // this.updateModalShow = true
     },
     showModal () {
-      this.$store.dispatch('modal_is_show', true)
+      this.$store.dispatch('show_modal', {
+        mode: 'delete'
+      })
     }
   }
 }
