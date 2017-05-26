@@ -8,6 +8,7 @@ import actions from './acitons'
 import getters from './getters'
 import mutations from './mutations'
 import modal from './modal'
+import categories from './categories'
 
 export default new Vuex.Store({
   state,
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   getters,
   mutations,
   modules: {
-    modal
+    modal,
+    categories
   }
 })

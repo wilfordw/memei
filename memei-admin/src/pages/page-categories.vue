@@ -1,70 +1,98 @@
 <template lang="html">
   <div>
-    <div>Page-Categories</div>
-    <Button type="success" @click="createModalShow = true">新增</Button>
-    <Button type="primary" @click="showModal">编辑</Button>
-    <Button type="error" @click="deleteModalShow = true">删除</Button>
-    <create-modal :show="createModalShow" @on-close="createModalShow = false" @on-update="updateCards"></create-modal>
-    <update-modal :show="updateModalShow" @on-close="updateModalShow = false" :id="id" @on-update="updateCards"></update-modal>
-    <delete-modal :show="deleteModalShow" :id="id" @on-close="deleteModalShow = false" @on-update="updateCards"></delete-modal>
+    <Button type="success" @click="showCreateModal">新增</Button>
+    <Button type="primary" @click="showUpdateModal">编辑</Button>
+    <Button type="error" @click="showDeleteModal">删除</Button>
 
-    <base-modal></base-modal>
+     <Table border :columns="columns" :data="list"></Table>
 
-    <p>{{ num }}</p>
-    <p>{{ double }}</p>
-    <p>{{ show }}</p>
-    <p>{{ loading }}</p>
+    <categories-modal :id="id"></categories-modal>
 
   </div>
 </template>
 
 <script>
-import createModal from '../modals/categories/create.vue'
-import updateModal from '../modals/categories/update.vue'
-import deleteModal from '../modals/categories/delete.vue'
-import baseModal from '../modals/baseModal.vue'
-import { mapState, mapGetters } from 'vuex'
+import categoriesModal from '../modals/categories-modal.vue'
+import { mapState } from 'vuex'
 // import * as types from '../store/modal/mutations_types'
 
 export default {
   data () {
     return {
-      createModalShow: false,
-      updateModalShow: false,
-      deleteModalShow: false,
-      id: 1
+      id: 1,
+      columns: [
+        {
+          title: '名称',
+          key: 'name'
+        },
+        {
+          title: '操作',
+          key: 'action',
+          width: 150,
+          align: 'center',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.id = params.row.id
+                    this.showUpdateModal(params.row.name)
+                  }
+                }
+              }, '编辑'),
+              h('Button', {
+                props: {
+                  type: 'error',
+                  size: 'small'
+                },
+                on: {
+                  click: () => {
+                    this.id = params.row.id
+                    this.showDeleteModal()
+                  }
+                }
+              }, '删除')
+            ])
+          }
+        }
+      ]
     }
   },
   computed: {
     ...mapState({
-      num: state => state.num,
-      show: state => state.modal.show,
-      loading: state => state.modal.loading
-    }),
-    ...mapGetters([
-      'double'
-    ])
+      list: state => state.categories.list
+    })
   },
   components: {
-    'create-modal': createModal,
-    'update-modal': updateModal,
-    'delete-modal': deleteModal,
-    'base-modal': baseModal
+    'categories-modal': categoriesModal
   },
   methods: {
-    updateCards () {
-      console.log('updateCategoryCards')
+    showUpdateModal (name) {
+      this.$store.dispatch('show_modal', {
+        mode: 'update',
+        params: { name }
+      })
     },
-    updateClick () {
-      this.$store.dispatch('increment')
-      // this.id = 2
-      // this.updateModalShow = true
+    showCreateModal () {
+      this.$store.dispatch('show_modal', {
+        mode: 'create'
+      })
     },
-    showModal () {
+    showDeleteModal () {
       this.$store.dispatch('show_modal', {
         mode: 'delete'
       })
     }
+  },
+  mounted: function () {
+    this.$store.dispatch('categories_index')
   }
 }
 </script>

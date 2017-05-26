@@ -7,6 +7,9 @@ export default {
 
   // modal 配置
   settings: {
+    // 模式
+    mode: 'info',
+
     // 标题文字
     title: '提示',
 
@@ -20,6 +23,9 @@ export default {
     btnLabel: '确定',
 
     // 成功失败 消息文字
-    msg: '确认'
+    msg: '确认',
+
+    // 表单的默认参数
+    params: {}
   }
 }

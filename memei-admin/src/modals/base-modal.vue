@@ -24,18 +24,23 @@ export default {
     ...mapState({
       show: state => state.modal.show,
       loading: state => state.modal.loading,
-      settings: state => state.modal.settings,
-      formData: state => state.modal.formData
+      settings: state => state.modal.settings
     })
   },
   methods: {
     submit () {
       this.$store.dispatch('modal_button_is_loading', true)
-      setTimeout(() => {
-        this.$store.dispatch('modal_button_is_loading', false)
-        this.$store.dispatch('modal_is_show', false)
-        this.$Message.success(this.settings.msg + '成功')
-      }, 1000)
+      this.$emit('submit', {
+        success: () => {
+          this.$store.dispatch('modal_button_is_loading', false)
+          this.$store.dispatch('modal_is_show', false)
+          this.$Message.success(this.settings.msg + '成功')
+        },
+        error: () => {
+          this.$store.dispatch('modal_button_is_loading', false)
+          this.$Message.error(this.settings.msg + '失败')
+        }
+      })
     }
   }
 }
