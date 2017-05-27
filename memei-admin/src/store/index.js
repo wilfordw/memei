@@ -5,13 +5,15 @@ Vue.use(Vuex)
 
 import modal from './modal'
 import categories from './categories'
+import authors from './authors'
 
 const store = new Vuex.Store({
 
   modules: {
 
     modal,
-    categories
+    categories,
+    authors
 
   }
 

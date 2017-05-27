@@ -33,10 +33,13 @@ export default {
   modal_request: ({
     state,
     dispatch
-  }, request) => {
+  }, {
+    request,
+    nextAction
+  }) => {
     request.then(response => {
       if (response.status === 200) {
-        dispatch('categories_index')
+        dispatch(nextAction)
         state.settings.successCB()
       } else {
         state.settings.errorCB(response)

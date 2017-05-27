@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <Button type="success" @click="showCreateModal">新增</Button>
-    
+
      <Table border :columns="columns" :data="list"></Table>
 
     <categories-modal></categories-modal>
@@ -12,7 +12,6 @@
 <script>
 import categoriesModal from '../modals/categories-modal.vue'
 import { mapState } from 'vuex'
-// import * as types from '../store/modal/mutations_types'
 
 export default {
   data () {
