@@ -30,18 +30,21 @@ export default {
   methods: {
     submit () {
       this.$store.dispatch('modal_button_is_loading', true)
-      this.$emit('submit', {
-        success: () => {
-          this.$store.dispatch('modal_button_is_loading', false)
-          this.$store.dispatch('modal_is_show', false)
-          this.$Message.success(this.settings.msg + '成功')
-        },
-        error: () => {
-          this.$store.dispatch('modal_button_is_loading', false)
-          this.$Message.error(this.settings.msg + '失败')
-        }
-      })
+      this.$emit('submit')
     }
+  },
+  mounted () {
+    this.$store.dispatch('modal_settings_change', {
+      successCB: () => {
+        this.$store.dispatch('modal_button_is_loading', false)
+        this.$store.dispatch('modal_is_show', false)
+        this.$Message.success(this.settings.msg + '成功')
+      },
+      errorCB: () => {
+        this.$store.dispatch('modal_button_is_loading', false)
+        this.$Message.error(this.settings.msg + '失败')
+      }
+    })
   }
 }
 </script>

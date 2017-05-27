@@ -6,7 +6,7 @@
 
      <Table border :columns="columns" :data="list"></Table>
 
-    <categories-modal :id="id"></categories-modal>
+    <categories-modal></categories-modal>
 
   </div>
 </template>
@@ -19,7 +19,6 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      id: 1,
       columns: [
         {
           title: '名称',
@@ -42,8 +41,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.id = params.row.id
-                    this.showUpdateModal(params.row.name)
+                    this.showUpdateModal(params.row.id, params.row.name)
                   }
                 }
               }, '编辑'),
@@ -54,8 +52,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.id = params.row.id
-                    this.showDeleteModal()
+                    this.showDeleteModal(params.row.id)
                   }
                 }
               }, '删除')
@@ -74,10 +71,10 @@ export default {
     'categories-modal': categoriesModal
   },
   methods: {
-    showUpdateModal (name) {
+    showUpdateModal (id, name) {
       this.$store.dispatch('show_modal', {
         mode: 'update',
-        params: { name }
+        params: { id, name }
       })
     },
     showCreateModal () {
@@ -85,9 +82,10 @@ export default {
         mode: 'create'
       })
     },
-    showDeleteModal () {
+    showDeleteModal (id) {
       this.$store.dispatch('show_modal', {
-        mode: 'delete'
+        mode: 'delete',
+        params: { id }
       })
     }
   },

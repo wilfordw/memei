@@ -19,9 +19,6 @@ export default {
       }
     }
   },
-  props: {
-    id: Number
-  },
   computed: {
     ...mapState({
       show: state => state.modal.show,
@@ -39,15 +36,13 @@ export default {
     'base-modal': baseModal
   },
   methods: {
-    onSubmit ({ success, error }) {
+    onSubmit () {
       if (this.settings.mode === 'create') {
-        this.$store.dispatch('categories_store', { formData: this.formData, successCB: success, errorCB: error })
+        this.$store.dispatch('categories_store', this.formData)
       } else if (this.settings.mode === 'update') {
-        this.$store.dispatch('categories_update', { id: this.id, formData: this.formData, successCB: success, errorCB: error })
+        this.$store.dispatch('categories_update', this.formData)
       } else if (this.settings.mode === 'delete') {
-        this.$store.dispatch('categories_delete', { id: this.id, successCB: success, errorCB: error })
-      } else {
-        success()
+        this.$store.dispatch('categories_delete')
       }
     }
   }

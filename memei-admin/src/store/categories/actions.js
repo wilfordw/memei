@@ -11,72 +11,40 @@ export default {
      })
   },
 
-  ajax_response: ({
-    commit,
-    dispatch
-  },
-  {
-    request,
-    successCB,
-    errorCB
-  }) => {
+  modol_request: ({
+    dispatch,
+    getters
+  }, request) => {
     request.then(response => {
       if (response.status === 200) {
         dispatch('categories_index')
-        successCB()
+        getters.modal_successCB()
       } else {
-        errorCB(response)
+        getters.modal_errorCB(response)
       }
     })
      .catch(error => {
-       errorCB(error)
+       getters.modal_errorCB(error)
      })
   },
 
   categories_store: ({
-    commit,
     dispatch
-  },
-  {
-    formData,
-    successCB,
-    errorCB
-  }) => {
-    dispatch('ajax_response', {
-      request: ajax.post('/categories/', formData),
-      successCB,
-      errorCB
-    })
+  }, formData) => {
+    dispatch('modol_request', ajax.post('/categories/', formData))
   },
 
   categories_update: ({
-    commit,
-    dispatch
-  }, {
-    id,
-    formData,
-    successCB,
-    errorCB
-  }) => {
-    dispatch('ajax_response', {
-      request: ajax.put('/categories/' + id, formData),
-      successCB,
-      errorCB
-    })
+    dispatch,
+    getters
+  }, formData) => {
+    dispatch('modol_request', ajax.put('/categories/' + getters.modal_param_id, formData))
   },
 
   categories_delete: ({
-    commit,
-    dispatch
-  }, {
-    id,
-    successCB,
-    errorCB
+    dispatch,
+    getters
   }) => {
-    dispatch('ajax_response', {
-      request: ajax.delete('/categories/' + id),
-      successCB,
-      errorCB
-    })
+    dispatch('modol_request', ajax.delete('/categories/' + getters.modal_param_id))
   }
 }

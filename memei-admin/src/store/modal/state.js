@@ -26,6 +26,12 @@ export default {
     msg: '确认',
 
     // 表单的默认参数
-    params: {}
+    params: {},
+
+    // 表单请求成功回调
+    successCB: null,
+
+    // 表单请求错误回调
+    errorCB: null
   }
 }
