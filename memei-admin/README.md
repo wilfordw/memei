@@ -8,7 +8,7 @@
 
 ## 那些坑
 
-#### axios data参数跨域问题
+### axios data参数跨域问题
 
 参考[axios可以解决跨域访问的问题吗？](https://segmentfault.com/q/1010000007665348)
 
@@ -42,4 +42,12 @@ axios.interceptors.request.use(function (config) {
   console.error(error)
   return Promise.reject(error)
 })
+```
+
+### <form>表单内<input>标签回车自动刷新页面
+
+**如果只有一个文本框时，按下回车将会触发表单的提交事件。**，那解决办法很简单，加一个隐藏的文本框
+
+```html
+<input type="text" style="display:none" />
 ```

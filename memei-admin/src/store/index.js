@@ -17,6 +17,7 @@ const store = new Vuex.Store({
 
 })
 
+// vuex hot reloading
 if (module.hot) {
   module.hot.accept([
     './modal',

@@ -3,16 +3,20 @@
     :value="show"
     @input="$store.dispatch('modal_is_show', arguments[0])"
     width="360">
+
     <p slot="header" style="text-align:center" :style="{color: settings.color}">
       <Icon type="information-circled"></Icon>
       <span>{{ settings.title }}</span>
     </p>
+
     <div style="text-align:center">
       <slot></slot>
     </div>
+
     <div slot="footer">
       <Button :type="settings.btnType" size="large" long :loading="loading" @click="submit">{{ settings.btnLabel }}</Button>
     </div>
+
   </Modal>
 </template>
 
