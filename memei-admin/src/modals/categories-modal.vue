@@ -1,6 +1,6 @@
 <template lang="html">
   <base-modal @submit="onSubmit">
-    <Input v-if="settings.mode === 'create' || settings.mode === 'update'" v-model="formData.name" placeholder="请输入">
+    <Input v-if="settings.mode === 'create' || settings.mode === 'update'" v-model="formData.name" placeholder="请输入" @on-enter="onInput">
       <span slot="prepend">名字</span>
     </Input>
     <p v-if="settings.mode === 'delete'">确定要删除该类型吗？</p>
@@ -36,6 +36,10 @@ export default {
     'base-modal': baseModal
   },
   methods: {
+    onInput () {
+      this.$store.dispatch('modal_button_is_loading', true)
+      this.onSubmit()
+    },
     onSubmit () {
       if (this.settings.mode === 'create') {
         this.$store.dispatch('categories_store', this.formData)

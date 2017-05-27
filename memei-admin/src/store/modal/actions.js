@@ -37,7 +37,7 @@ export default {
     request.then(response => {
       if (response.status === 200) {
         dispatch('categories_index')
-        state.settings.params.successCB()
+        state.settings.successCB()
       } else {
         state.settings.errorCB(response)
       }
