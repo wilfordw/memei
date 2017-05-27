@@ -1,4 +1,5 @@
 export default {
+
   // modal是否显示
   show: false,
 
@@ -34,4 +35,5 @@ export default {
     // 表单请求错误回调
     errorCB: null
   }
+
 }

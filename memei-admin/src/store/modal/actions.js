@@ -1,7 +1,7 @@
 import * as types from './mutations_types'
 
 export default {
-  // 显示弹出框
+
   show_modal: ({
     commit,
     dispatch
@@ -12,14 +12,12 @@ export default {
     commit(types.MODAL_IS_SHOW, true)
   },
 
-  // 修改该弹出框显示状态
   modal_is_show: ({
     commit
   }, isShow) => {
     commit(types.MODAL_IS_SHOW, isShow)
   },
 
-  // 修改按钮加载状态
   modal_button_is_loading: ({
     commit
   }, isLoading) => {
@@ -30,7 +28,25 @@ export default {
     commit
   }, settings) => {
     commit(types.MODAL_SETTINGS_CHANGE, settings)
+  },
+
+  modal_request: ({
+    state,
+    dispatch
+  }, request) => {
+    request.then(response => {
+      if (response.status === 200) {
+        dispatch('categories_index')
+        state.settings.params.successCB()
+      } else {
+        state.settings.errorCB(response)
+      }
+    })
+     .catch(error => {
+       state.settings.errorCB(error)
+     })
   }
+
 }
 
 // 新增 编辑 删除 弹出框默认 配置内容
