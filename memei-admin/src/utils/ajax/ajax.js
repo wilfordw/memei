@@ -1,4 +1,8 @@
 import axios from 'axios'
+import {
+  deepCopy
+} from '@/utils'
+
 let qs = require('qs')
 
 axios.defaults.baseURL = 'http://106.14.148.86/api'
@@ -6,6 +10,9 @@ axios.defaults.baseURL = 'http://106.14.148.86/api'
 //
 // 添加拦截
 axios.interceptors.request.use(function (config) {
+  // 深度拷贝 保证不污染源来数据
+  config.data = deepCopy(config.data)
+
   if (config.method === 'put') { // put 请求自动转换
     config.data._method = 'put'
     config.method = 'post'

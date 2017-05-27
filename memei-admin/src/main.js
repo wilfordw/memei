@@ -7,11 +7,12 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
 import store from './store'
+import {
+  deepCopy
+} from '@/utils'
 
 Vue.use(iView)
 Vue.config.productionTip = false
-
-Vue.prototype.$http = axios
 
 /* eslint-disable no-new */
 new Vue({
@@ -20,3 +21,7 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+Vue.prototype.$http = axios
+
+Vue.prototype.$deepCopy = deepCopy
