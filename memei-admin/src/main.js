@@ -2,12 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import axios from 'axios'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
 import store from './store'
 import {
+  ajax,
   deepCopy
 } from '@/utils'
 
@@ -22,6 +22,6 @@ new Vue({
   components: { App }
 })
 
-Vue.prototype.$http = axios
+Vue.prototype.$http = ajax
 
 Vue.prototype.$deepCopy = deepCopy

@@ -10,63 +10,73 @@ export default {
        commit(types.CATEGORIES_LIST_UPDATE, response.data.categories)
      })
   },
+
+  ajax_response: ({
+    commit,
+    dispatch
+  },
+  {
+    request,
+    successCB,
+    errorCB
+  }) => {
+    request.then(response => {
+      if (response.status === 200) {
+        dispatch('categories_index')
+        successCB()
+      } else {
+        errorCB(response)
+      }
+    })
+     .catch(error => {
+       errorCB(error)
+     })
+  },
+
   categories_store: ({
     commit,
     dispatch
-  }, formData) => {
-    return new Promise(function (resolve, reject) {
-      ajax.post('/categories/', formData)
-       .then(response => {
-         if (response.status === 200) {
-           dispatch('categories_index')
-           resolve(response)
-         } else {
-           reject(response)
-         }
-       })
-       .catch(error => {
-         reject(error)
-       })
+  },
+  {
+    formData,
+    successCB,
+    errorCB
+  }) => {
+    dispatch('ajax_response', {
+      request: ajax.post('/categories/', formData),
+      successCB,
+      errorCB
     })
   },
 
   categories_update: ({
     commit,
     dispatch
-  }, {id, formData}) => {
-    return new Promise(function (resolve, reject) {
-      ajax.put('/categories/' + id, formData)
-       .then(response => {
-         if (response.status === 200) {
-           dispatch('categories_index')
-           resolve(response)
-         } else {
-           reject(response)
-         }
-       })
-       .catch(error => {
-         reject(error)
-       })
+  }, {
+    id,
+    formData,
+    successCB,
+    errorCB
+  }) => {
+    dispatch('ajax_response', {
+      request: ajax.put('/categories/' + id, formData),
+      successCB,
+      errorCB
     })
   },
 
   categories_delete: ({
     commit,
     dispatch
-  }, id) => {
-    return new Promise(function (resolve, reject) {
-      ajax.delete('/categories/' + id)
-       .then(response => {
-         if (response.status === 200) {
-           dispatch('categories_index')
-           resolve(response)
-         } else {
-           reject(response)
-         }
-       })
-       .catch(error => {
-         reject(error)
-       })
+  }, {
+    id,
+    successCB,
+    errorCB
+  }) => {
+    dispatch('ajax_response', {
+      request: ajax.delete('/categories/' + id),
+      successCB,
+      errorCB
     })
   }
 }

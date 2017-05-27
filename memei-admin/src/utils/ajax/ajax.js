@@ -2,11 +2,14 @@ import axios from 'axios'
 import {
   deepCopy
 } from '@/utils'
+import {
+  apiDomainOrIp
+} from '@/configs'
 
 let qs = require('qs')
 
-axios.defaults.baseURL = 'http://106.14.148.86/api'
-// axios.defaults.baseURL = 'http://memei-api.dev/api'
+axios.defaults.baseURL = apiDomainOrIp
+
 //
 // 添加拦截
 axios.interceptors.request.use(function (config) {
