@@ -1,9 +1,7 @@
 <template lang="html">
   <div>
     <Button type="success" @click="showCreateModal">新增</Button>
-    <Button type="primary" @click="showUpdateModal">编辑</Button>
-    <Button type="error" @click="showDeleteModal">删除</Button>
-
+    
      <Table border :columns="columns" :data="list"></Table>
 
     <categories-modal></categories-modal>

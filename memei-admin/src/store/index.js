@@ -6,7 +6,7 @@ Vue.use(Vuex)
 import modal from './modal'
 import categories from './categories'
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
 
   modules: {
 
@@ -16,3 +16,19 @@ export default new Vuex.Store({
   }
 
 })
+
+if (module.hot) {
+  module.hot.accept([
+    './modal',
+    './categories'
+  ], () => {
+    store.hotUpdate({
+      modules: {
+        modal: require('./modal').default,
+        categories: require('./categories').default
+      }
+    })
+  })
+}
+
+export default store
