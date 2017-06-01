@@ -22,6 +22,14 @@ export default {
           key: 'name'
         },
         {
+          title: '类型',
+          key: 'category_id',
+          render: (h, params) => {
+            let categoryName = this.$store.getters.categories_array[params.row.category_id]
+            return h('strong', categoryName)
+          }
+        },
+        {
           title: '操作',
           key: 'action',
           width: 150,
@@ -38,7 +46,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.showUpdateModal(params.row.id, params.row.name)
+                    this.showUpdateModal(params.row.id, params.row.name, params.row.category_id)
                   }
                 }
               }, '编辑'),
@@ -68,10 +76,10 @@ export default {
     'authors-modal': authorsModal
   },
   methods: {
-    showUpdateModal (id, name) {
+    showUpdateModal (id, name, categoryId) {
       this.$store.dispatch('show_modal', {
         mode: 'update',
-        params: { id, name }
+        params: {id, name, categoryId}
       })
     },
     showCreateModal () {

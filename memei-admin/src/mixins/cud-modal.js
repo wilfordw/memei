@@ -8,14 +8,6 @@ export default {
       mode: state => state.modal.settings.mode
     })
   },
-  watch: {
-    show (to, from) {
-      if (to) {
-        if (this.$refs.modalForm) { this.$refs.modalForm.resetFields() }
-        this.formData.name = this.params.name ? this.params.name : ''
-      }
-    }
-  },
   methods: {
     onInput () {
       this.$store.dispatch('modal_button_is_loading', true)

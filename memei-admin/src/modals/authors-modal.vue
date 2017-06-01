@@ -2,9 +2,9 @@
   <base-modal @submit="onSubmit">
     <p v-if="mode === 'delete'">确定要删除该类型吗？</p>
     <Form v-else ref='modalForm' :model="formData" :rules="ruleValidate" :label-width="60" >
-      <Form-item  label="类型" prop="categories_id">
+      <Form-item  label="类型" prop="category_id">
         <Select v-model="formData.category_id" style="width:200px">
-          <Option v-for="item in categories_select" :value="item.value" :key="item">{{ item.label }}</Option>
+          <Option v-for="item in categories_select" :value="item.value.toString()" :key="item">{{ item.label }}</Option>
         </Select>
       </Form-item>
       <Form-item  label="作者名" prop="name">
@@ -37,6 +37,15 @@ export default {
         category_id: [
           { required: true, message: '请选择一个类型', trigger: 'change' }
         ]
+      }
+    }
+  },
+  watch: {
+    show (to, from) {
+      if (to) {
+        if (this.$refs.modalForm) { this.$refs.modalForm.resetFields() }
+        this.formData.name = this.params.name ? this.params.name : ''
+        this.formData.category_id = this.params.categoryId ? this.params.categoryId.toString() : ''
       }
     }
   },

@@ -33,6 +33,14 @@ export default {
   components: {
     'base-modal': baseModal
   },
+  watch: {
+    show (to, from) {
+      if (to) {
+        if (this.$refs.modalForm) { this.$refs.modalForm.resetFields() }
+        this.formData.name = this.params.name ? this.params.name : ''
+      }
+    }
+  },
   methods: {
     onRequest () {
       if (this.mode === 'create') {
