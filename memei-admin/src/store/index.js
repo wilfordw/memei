@@ -6,6 +6,7 @@ Vue.use(Vuex)
 import modal from './modal'
 import categories from './categories'
 import authors from './authors'
+import cards from './cards'
 
 const store = new Vuex.Store({
 
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
 
     modal,
     categories,
-    authors
+    authors,
+    cards
 
   }
 
@@ -23,12 +25,16 @@ const store = new Vuex.Store({
 if (module.hot) {
   module.hot.accept([
     './modal',
-    './categories'
+    './categories',
+    './cards',
+    './authors'
   ], () => {
     store.hotUpdate({
       modules: {
         modal: require('./modal').default,
-        categories: require('./categories').default
+        categories: require('./categories').default,
+        authors: require('./authors').default,
+        cards: require('./cards').default
       }
     })
   })
