@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import VueRouter from 'vue-router'
+import routes from '@/configs/routes'
 
 import store from './store'
 import {
@@ -13,11 +15,17 @@ import {
 
 Vue.use(iView)
 Vue.config.productionTip = false
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes
+})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
+  router,
   template: '<App/>',
   components: { App }
 })

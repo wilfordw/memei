@@ -4,13 +4,13 @@
 
      <Table border :columns="columns" :data="list"></Table>
 
-    <authors-modal></authors-modal>
+    <categories-modal></categories-modal>
 
   </div>
 </template>
 
 <script>
-import authorsModal from '../modals/authors-modal.vue'
+import categoriesModal from '@/modals/categories-modal.vue'
 import { mapState } from 'vuex'
 
 export default {
@@ -20,14 +20,6 @@ export default {
         {
           title: '名称',
           key: 'name'
-        },
-        {
-          title: '类型',
-          key: 'category_id',
-          render: (h, params) => {
-            let categoryName = this.$store.getters.categories_array[params.row.category_id]
-            return h('strong', categoryName)
-          }
         },
         {
           title: '操作',
@@ -46,7 +38,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.showUpdateModal(params.row.id, params.row.name, params.row.category_id)
+                    this.showUpdateModal(params.row.id, params.row.name)
                   }
                 }
               }, '编辑'),
@@ -69,17 +61,17 @@ export default {
   },
   computed: {
     ...mapState({
-      list: state => state.authors.list
+      list: state => state.categories.list
     })
   },
   components: {
-    'authors-modal': authorsModal
+    'categories-modal': categoriesModal
   },
   methods: {
-    showUpdateModal (id, name, categoryId) {
+    showUpdateModal (id, name) {
       this.$store.dispatch('show_modal', {
         mode: 'update',
-        params: {id, name, categoryId}
+        params: { id, name }
       })
     },
     showCreateModal () {
@@ -95,7 +87,7 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.dispatch('authors_index')
+    this.$store.dispatch('categories_index')
   }
 }
 </script>

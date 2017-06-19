@@ -57,31 +57,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-.layout {
-  background: #f5f7f9;
-}
-.layout-logo{
-  float: left;
-  position: relative;
-  top: 3px;
-  left: 20px;
-  font-size: 30px;
-  font-weight: 500;
-  color: #f5edf1
-}
-
-.layout-menu-left{
-  background: #fff;
-}
-
-.layout-content{
-   min-height: 500px;
-   margin: 15px;
-   overflow: hidden;
-   background: #fff;
-   border-radius: 4px;
-}
-
-</style>

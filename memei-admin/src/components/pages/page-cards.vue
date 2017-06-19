@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import cardsModal from '../modals/cards-modal.vue'
+import cardsModal from '@/modals/cards-modal.vue'
 import { mapState } from 'vuex'
 
 export default {
