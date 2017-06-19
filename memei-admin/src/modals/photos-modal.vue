@@ -70,7 +70,7 @@ export default {
       let file = event.target.files[0]
       const self = this
       if (file) {
-        const formData = new FormData()
+        let formData = new FormData()
         formData.append('file', file)
 
         // 获取token
@@ -79,23 +79,34 @@ export default {
           const result = response.data
           formData.append('token', result.token)
           formData.append('key', result.key)
+
+          const data = new FormData()
+
+          data.append('action', 'ADD')
+          data.append('param', 0)
+          data.append('secondParam', 0)
+          data.append('file', new Blob(['test payload'], { type: 'text/csv' }))
+
+          self.$http.post('http://httpbin.org/post', data, {headers: { 'Content-Type': 'multipart/form-data' }})
+
             // 提交给七牛处理
-          self.$http.post('http://upload.qiniu.com', formData, {
-            progress (event) {
-                    // 传递给父组件的progress方法
-              console.log('progress: ' + event.loaded / event.total * 100)
-            }
-          })
-          .then(response => {
-            const result = response.data
-            if (result.hash && result.key) {
-              console.log('state 200: ', result)
-                  // 让当前target可以重新选择
-              event.target.value = null
-            } else {
-              console.log('state 500: ', result)
-            }
-          }, error => console.log('state 500: ', error))
+          // self.$http.post('http://upload.qiniu.com', formData, {
+          //   headers: { 'Content-Type': 'multipart/form-data' },
+          //   progress (event) {
+          //           // 传递给父组件的progress方法
+          //     console.log('progress: ' + event.loaded / event.total * 100)
+          //   }
+          // })
+          // .then(response => {
+          //   const result = response.data
+          //   if (result.hash && result.key) {
+          //     console.log('state 200: ', result)
+          //         // 让当前target可以重新选择
+          //     event.target.value = null
+          //   } else {
+          //     console.log('state 500: ', result)
+          //   }
+          // }, error => console.log('state 500: ', error))
         })
       }
     }
