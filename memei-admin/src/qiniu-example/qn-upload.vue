@@ -51,7 +51,6 @@ export default {
           formData.append('token', result.token)
           formData.append('key', result.key)
 
-          console.log(formData)
             // 提交给七牛处理
           self.$http.post('http://upload.qiniu.com', formData, {
             progress (event) {

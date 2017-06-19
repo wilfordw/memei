@@ -7,9 +7,11 @@ import 'iview/dist/styles/iview.css'
 import VueRouter from 'vue-router'
 import routes from '@/configs/routes'
 
+import axios from 'axios'
+
 import store from './store'
 import {
-  ajax,
+  // ajax,
   deepCopy
 } from '@/utils'
 
@@ -30,6 +32,6 @@ new Vue({
   components: { App }
 })
 
-Vue.prototype.$http = ajax
+Vue.prototype.$http = axios
 
 Vue.prototype.$deepCopy = deepCopy

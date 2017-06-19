@@ -19,7 +19,7 @@
 <script>
 import baseModal from './base-modal.vue'
 import { cudModal } from '@/mixins'
-import { apiDomainOrIp } from '@/configs'
+// import { apiDomainOrIp } from '@/configs'
 
 export default {
   mixins: [
@@ -69,44 +69,36 @@ export default {
     fileChanged (event) {
       let file = event.target.files[0]
       const self = this
+      const flag = this.flag
       if (file) {
-        let formData = new FormData()
+        const formData = new FormData()
         formData.append('file', file)
 
         // 获取token
-        this.$http.get(apiDomainOrIp + `/photos/uptoken`)
+        this.$http.post(`/qiniu/token`)
         .then(response => {
           const result = response.data
           formData.append('token', result.token)
           formData.append('key', result.key)
 
-          const data = new FormData()
-
-          data.append('action', 'ADD')
-          data.append('param', 0)
-          data.append('secondParam', 0)
-          data.append('file', new Blob(['test payload'], { type: 'text/csv' }))
-
-          self.$http.post('http://httpbin.org/post', data, {headers: { 'Content-Type': 'multipart/form-data' }})
-
             // 提交给七牛处理
-          // self.$http.post('http://upload.qiniu.com', formData, {
-          //   headers: { 'Content-Type': 'multipart/form-data' },
-          //   progress (event) {
-          //           // 传递给父组件的progress方法
-          //     console.log('progress: ' + event.loaded / event.total * 100)
-          //   }
-          // })
-          // .then(response => {
-          //   const result = response.data
-          //   if (result.hash && result.key) {
-          //     console.log('state 200: ', result)
-          //         // 让当前target可以重新选择
-          //     event.target.value = null
-          //   } else {
-          //     console.log('state 500: ', result)
-          //   }
-          // }, error => console.log('state 500: ', error))
+          self.$http.post('http://upload.qiniu.com', formData, {
+            progress (event) {
+                    // 传递给父组件的progress方法
+              self.$emit('progress', parseFloat(event.loaded / event.total * 100), flag)
+            }
+          })
+          .then(response => {
+            const result = response.data
+            if (result.hash && result.key) {
+                  // 传递给父组件的complete方法
+              self.$emit('complete', 200, result, flag)
+                  // 让当前target可以重新选择
+              event.target.value = null
+            } else {
+              self.$emit('complete', 500, result, flag)
+            }
+          }, error => self.$emit('complete', 500, error.message), flag)
         })
       }
     }

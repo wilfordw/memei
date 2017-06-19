@@ -6,14 +6,16 @@ import {
   apiDomainOrIp
 } from '@/configs'
 
-// let qs = require('qs')
+let qs = require('qs')
 
 axios.defaults.baseURL = apiDomainOrIp
 
 //
 // 添加拦截
 axios.interceptors.request.use(function (config) {
-  // console.log(config)
+  if (config.url === 'http://upload.qiniu.com') {
+    return config
+  }
 
   // 深度拷贝 保证不污染源来数据
   config.data = deepCopy(config.data)
@@ -29,11 +31,8 @@ axios.interceptors.request.use(function (config) {
     config.method = 'post'
   }
 
-   // 使用 application/x-www-form-urlencoded 格式 解决跨域冲突
-
-  // if (config.url !== 'http://upload.qiniu.com') {
-  //   config.data = qs.stringify(config.data)
-  // }
+  // 使用 application/x-www-form-urlencoded 格式 解决跨域冲突
+  config.data = qs.stringify(config.data)
 
   return config
 }, function (error) {
