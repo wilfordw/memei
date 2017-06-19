@@ -7,6 +7,7 @@ import modal from './modal'
 import categories from './categories'
 import authors from './authors'
 import cards from './cards'
+import photos from './photos'
 
 const store = new Vuex.Store({
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
     modal,
     categories,
     authors,
-    cards
+    cards,
+    photos
 
   }
 
