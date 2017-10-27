@@ -78,41 +78,58 @@
   Mock.setup({
     timeout: '100-3000'
   })
-  // Mock.mock(/\.json/, {
-  //   'list|10': [
-  //     '@PICSDIRS'
-  //   ]
-  // })
-  var qs = require('qs')
+
+  Mock.mock(/\.json/, {
+    'list|10': [
+      '@PICSDIRS'
+    ]
+  })
+
   export default {
     methods: {
       getPhotos: function (isReset) {
+        var self = this
         return new Promise((resolve, reject) => {
-          axios.get('http://memei-api.dev/api/categories/', qs.stringify({ 'name': 'n' }))
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-        })
-        //   this.$$.ajax({
-        //     url: 'photos.json',
-        //     method: 'GET',
-        //     timeout: 10000,
-        //     success: (data, status, xhr) => {
-        //       let d = JSON.parse(data)
-        //       if (isReset) { this.infoList = [] }
-        //       d.list.forEach((item) => {
-        //         this.infoList.push(item)
-        //       })
-        //       resolve()
-        //     },
-        //     error: (xhr, status) => {
-        //       reject(xhr, status)
+        //   axios.get('http://localhost:8333/article/all/app', {
+        //     params: {
+        //       startId: 0,
+        //       pageSize: 10
         //     }
         //   })
+        //   .then(function (response) {
+        //     console.log(self)
+        //     console.log(response.data)
+        //     if (response.data.status === 0) {
+        //       let d = response.data.data
+        //       if (isReset) {
+        //         self.infoList = []
+        //       }
+        //       d.article_datas.forEach((item) => {
+        //         self.infoList.push(item)
+        //       })
+        //     }
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error)
+        //   })
         // })
+          this.$$.ajax({
+            url: 'photos.json',
+            method: 'GET',
+            timeout: 10000,
+            success: (data, status, xhr) => {
+              let d = JSON.parse(data)
+              if (isReset) { this.infoList = [] }
+              d.list.forEach((item) => {
+                this.infoList.push(item)
+              })
+              resolve()
+            },
+            error: (xhr, status) => {
+              reject(xhr, status)
+            }
+          })
+        })
       }
     }
   }
